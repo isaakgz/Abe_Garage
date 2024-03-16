@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getEmployees, getEmployeeById} = require('../controllers/employeeController');
+const {getEmployees, getEmployeeById, createEmployee} = require('../controllers/employeeController');
 
 
 // Get all employees
@@ -10,9 +10,7 @@ router.get("/", getEmployees)
 router.get("/:id",getEmployeeById)
 
 // Create new employee
-router.post("/", (req, res) => {
-    res.send("Create new employee");
-})
+router.post("/", createEmployee)
 
 // Update employee by id
 router.put("/:id", (req, res) => {
