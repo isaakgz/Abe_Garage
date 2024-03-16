@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const {databaseErrorHandler} = require('./middlewares/errorMiddleware');
 
 const express = require('express');
 const db = require('./config/dbConfig');
@@ -27,6 +28,10 @@ app.get('/', (req, res) => {
 app.use('/api/employee', employeeRoute);
 
 
+
+
+//database error handling middleware
+app.use(databaseErrorHandler);
 
 
 // Start the server
