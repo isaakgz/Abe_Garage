@@ -4,6 +4,7 @@ dotenv.config();
 const express = require('express');
 const db = require('./config/dbConfig');
 const app = express();
+const employeeRoute = require('./routes/employeeRoute');
 
 const port = process.env.PORT || 3000;
 //middleware to parse the body of the request
@@ -22,6 +23,8 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+//employee route
+app.use('/api/employee', employeeRoute);
 
 
 
