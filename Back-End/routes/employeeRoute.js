@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {getEmployees} = require('../controllers/employeeController');
+const {getEmployees, getEmployeeById} = require('../controllers/employeeController');
 
 
 // Get all employees
 router.get("/", getEmployees)
 
-// Get employee by id
-router.get("/:id", (req, res) => {
-    res.send("Get employee by id");
-})
+// Get employee by employee id
+router.get("/:id",getEmployeeById)
 
 // Create new employee
 router.post("/", (req, res) => {
