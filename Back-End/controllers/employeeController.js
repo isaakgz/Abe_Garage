@@ -74,6 +74,40 @@ const createEmployee = async (req, res, next) => {
    
 }
 
+// @desc    update employee
+// @route   PUT /api/employee/:id
+// @access  private
+
+const updateEmployee = async (req, res, next) => {
+
+   // get the id from the request params and check if the employee exists with the given id
+   const employeeId = req.params.id;
+   const employeeExists = await employeeService.getSingleEmployee(employeeId);
+   if (employeeExists.message) {
+      return res.status(404).json(employeeExists);
+   }
+
+   // get the employee data from the request body
+   const employeeData = req.body;
+
+   //validate the new employee data
+   const {error} = validateEmployee(employeeData);
+   if (error) {
+      return res.status(400).json({message: error.details[0].message.replace(/['"]+/g, '')})
+   }
+
+   //update the employee
+   try {
+      const employee = await employeeService.updateEmployee(employeeData, employeeId)
+      res.status(200).json(employee);
+   } catch (error) {
+      // pass the error to the error handler middleware
+       return next(error);
+   }
+
+}
  
 
-module.exports = {getEmployees, getEmployeeById, createEmployee}
+
+//export the functions
+module.exports = {getEmployees, getEmployeeById, createEmployee, updateEmployee }

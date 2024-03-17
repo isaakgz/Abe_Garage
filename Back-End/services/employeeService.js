@@ -77,5 +77,31 @@ const createEmployee = async (employeeData) => {
 
 }
 
+// a function to update the employee
+const updateEmployee = async (employeeData, employeeId) => {
+    //sql query
+    let sql = "UPDATE employee SET employee_email = ?, employee_active_status = ? WHERE employee_id = ?";
+    const [rows] = await db.query(sql, [employeeData.email, employeeData.activeStatus, employeeId]);
+
+    //check if the data is updated and if so, update the employee info
+    if (rows.affectedRows > 0) {
+
+        //update the employee info
+        sql = "UPDATE employee_info SET employee_first_name = ?, employee_last_name = ?, employee_phone = ? WHERE employee_id = ?";
+        const [rows1] = await db.query(sql, [employeeData.firstName, employeeData.lastName, employeeData.phoneNumber, employeeId]);
+
+        //update the employee role
+        sql = "UPDATE employee_role SET company_role_id = ? WHERE employee_id = ?";
+        const [rows2] = await db.query(sql, [employeeData.roleId, employeeId]);
+
+        //return all updated data
+        return {employeeId: employeeId, employeeData: employeeData};
+
+    } else {
+        return "Failed to update employee data";
+    }
+
+}
+
 //export the service
-module.exports = {getEmployees, getSingleEmployee, doesEmployeeExist, createEmployee}
+module.exports = {getEmployees, getSingleEmployee, doesEmployeeExist, createEmployee, updateEmployee}
