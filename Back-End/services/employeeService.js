@@ -103,5 +103,22 @@ const updateEmployee = async (employeeData, employeeId) => {
 
 }
 
+// a function to delete the employee
+const deleteEmployee = async (id) => {
+    //sql query
+    const sql = "DELETE FROM employee WHERE employee_id = ?";
+    const [rows] = await db.query(sql, [id]);
+    
+    //check if the employee is deleted and return the message
+    if (rows.affectedRows > 0) {
+        return {message: "Employee deleted successfully"}; ;
+    } else {
+        return  {message: "Failed to delete the employee"};
+    }
+
+
+
+}
+
 //export the service
-module.exports = {getEmployees, getSingleEmployee, doesEmployeeExist, createEmployee, updateEmployee}
+module.exports = {getEmployees, getSingleEmployee, doesEmployeeExist, createEmployee, updateEmployee, deleteEmployee}

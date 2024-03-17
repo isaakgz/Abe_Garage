@@ -107,7 +107,28 @@ const updateEmployee = async (req, res, next) => {
 
 }
  
+// @desc    delete employee
+// @route   DELETE /api/employee/:id
+// @access  private
 
+const deleteEmployee =async (req, res) => {
+   // get the id from the request params and check if the employee exists with the given id
+   const employeeId = req.params.id;
+   const employeeExists = await employeeService.getSingleEmployee(employeeId);
+   if (employeeExists.message) {
+      return res.status(404).json(employeeExists);
+   }
+
+   //delete the employee
+   try {
+      const employee = await employeeService.deleteEmployee(employeeId)
+      res.status(200).json(employee);
+   } catch (error) {
+      // pass the error to the error handler middleware
+       return next(error);
+   }
+   
+}
 
 //export the functions
-module.exports = {getEmployees, getEmployeeById, createEmployee, updateEmployee }
+module.exports = {getEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee }
