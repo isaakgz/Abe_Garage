@@ -9,7 +9,7 @@ const employeeRoute = require('./routes/employeeRoute');
 const loginRoute = require("./routes/authRoute")
 const session = require('express-session');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ;
 //middleware to parse the body of the request
 app.use(express.json());
 
@@ -28,12 +28,6 @@ app.use( session({
 
 
 
-
-
-
-
-
-
 //home route
 app.get('/', (req, res) => {
     res.send('Hello World');
@@ -43,7 +37,7 @@ app.get('/', (req, res) => {
 app.use('/api/employee', employeeRoute);
 
 //login route
-app.use("/api/login", loginRoute)
+app.use("/api/auth", loginRoute)
 
 
 
@@ -53,6 +47,6 @@ app.use(databaseErrorHandler);
 
 
 // Start the server
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })

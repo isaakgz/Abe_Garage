@@ -41,8 +41,26 @@ const login = async (req, res) => {
     res.status(200).json({message: "User logged in successfully"})
 }
 
+// @desc    logout user
+// @route   GET /api/logout
+// @access  Private
+
+const logout = async (req, res) => {
+
+    //clear the session
+    req.session.destroy((err) => {
+        if(err) {
+            return res.status(500).json({message: "Internal Server Error"})
+        }
+    })
+
+    res.clearCookie("authorization");
+
+    //send a response
+    res.status(200).json({message: "User logged out successfully"})
+    
+}
 
 
 
-
-module.exports = {login}
+module.exports = {login, logout}
