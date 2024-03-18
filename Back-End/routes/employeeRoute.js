@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const {getEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee} = require('../controllers/employeeController');
+const {authMiddleware} = require("../middlewares/authMiddleware")
 
 
 // Get all employees
-router.get("/", getEmployees)
+router.get("/", authMiddleware, getEmployees)
 
 // Get employee by employee id
-router.get("/:id",getEmployeeById)
+router.get("/:id", authMiddleware,getEmployeeById)
 
 // Create new employee
-router.post("/", createEmployee)
+router.post("/", authMiddleware, createEmployee)
 
 // Update employee by id
-router.put("/:id", updateEmployee)
+router.put("/:id", authMiddleware, updateEmployee)
 
 
 // Delete employee by id
-router.delete("/:id", deleteEmployee )
+router.delete("/:id", authMiddleware, deleteEmployee )
 
 
 module.exports = router;

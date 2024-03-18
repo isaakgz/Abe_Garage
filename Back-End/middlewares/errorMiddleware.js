@@ -20,6 +20,7 @@ const databaseErrorHandler = (err, req, res, next) =>{
         case 'ER_PARSE_ERROR':
         return res.status(500).json({ message: 'Parse error' });
       default:
+        console.log(err)
         return res.status(500).json({ message: 'An unknown error occurred ' });
     }
 

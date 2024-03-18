@@ -18,7 +18,12 @@ app.use( session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false}
+    cookie: {
+        secure: process.env.NODE_ENV === "production" ? true : false,
+        maxAge: 1000 * 60 * 60 * 24, // 24 hours
+        httpOnly: true, // client-side js cannot access the cookie
+
+    }
 }));
 
 
