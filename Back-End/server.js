@@ -6,10 +6,20 @@ const express = require('express');
 const db = require('./config/dbConfig');
 const app = express();
 const employeeRoute = require('./routes/employeeRoute');
+const loginRoute = require("./routes/authRoute")
+const session = require('express-session');
 
 const port = process.env.PORT || 3000;
 //middleware to parse the body of the request
 app.use(express.json());
+
+// middleware to handle session
+app.use( session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
+}));
 
 
 
@@ -26,6 +36,9 @@ app.get('/', (req, res) => {
 
 //employee route
 app.use('/api/employee', employeeRoute);
+
+//login route
+app.use("/api/login", loginRoute)
 
 
 
