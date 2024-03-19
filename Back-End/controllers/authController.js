@@ -7,38 +7,43 @@ const authServices = require("../services/authService");
 // @route   POST /api/login
 // @access  Public
 
-const login = async (req, res) => {
-    const {email, password} = req.body;
+const login = async (req, res, next) => {
+    try {
+        const {email, password} = req.body;
 
-    //check if email and password are provided
-    if(!email || !password){
-        return res.status(400).json({message: "Please provide email and password"})
-    }
-
-    //check if the user exists in the database and status is active
-    const userExists = await authServices.doesEmployeeRegistered(email);
-    if(!userExists) {
-        return res.status(401).json({message: "User does not exist or is not active. Please register or contact the admin."})
-    }
-
-    //if the user exists, check if the password is correct
-    const isMatch = await authServices.isPasswordMatch(email, password);
-    if(!isMatch) {
-        return res.status(401).json({message: "Invalid credentials, please try again."})
-    } else{
-        //if the password is correct, generate a token
-        const token = await authServices.generateToken(email);
-
-        //store the token in a cookie
-        req.session.authorization = {
-            token: token,
-            email: email
+        //check if email and password are provided
+        if(!email || !password){
+            return res.status(400).json({message: "Please provide email and password"})
         }
-    }
 
-    //send a response
-   
-    res.status(200).json({message: "User logged in successfully"})
+        //check if the user exists in the database and status is active
+        const userExists = await authServices.doesEmployeeRegistered(email);
+        if(!userExists) {
+            return res.status(401).json({message: "User does not exist or is not active. Please register or contact the admin."})
+        }
+
+        //if the user exists, check if the password is correct
+        const isMatch = await authServices.isPasswordMatch(email, password);
+        if(!isMatch) {
+            return res.status(401).json({message: "Invalid credentials, please try again."})
+        } else{
+            //if the password is correct, generate a token
+            const token = await authServices.generateToken(email);
+
+            //store the token in a cookie
+            req.session.authorization = {
+                token: token,
+                email: email
+            }
+        }
+
+        //send a response
+        res.status(200).json({message: "User logged in successfully"})
+    } catch (error) {
+        console.error(error);
+        next(error);
+        
+    }
 }
 
 // @desc    logout user

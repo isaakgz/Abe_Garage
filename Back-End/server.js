@@ -39,6 +39,8 @@ app.use('/api/employee', employeeRoute);
 //login route
 app.use("/api/auth", loginRoute)
 
+//services route
+app.use("/api/services", require("./routes/serviceRoute")); 
 
 
 

@@ -21,5 +21,14 @@ const validateEmployee = (employeeData) => {
 
 }
 
+const validateService = (serviceData) => {
+    //define the schema
+    const schema = Joi.object({
+        serviceName: Joi.string().min(5).required(),
+        serviceDescription: Joi.string().min(30).required()
+    });
+    //return the validation result
+    return schema.validate(serviceData);
+}
 
-module.exports = validateEmployee;
+module.exports = {validateEmployee, validateService};

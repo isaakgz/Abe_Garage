@@ -1,5 +1,5 @@
 const employeeService   = require("../services/employeeService")
-const validateEmployee = require("../utils/validation")
+const {validateEmployee }= require("../utils/validation")
 
 
 // @desc    Get all employees
@@ -64,7 +64,7 @@ const createEmployee = async (req, res, next) => {
       //create the employee
       try {
          const employee = await employeeService.createEmployee(employeeData)
-         res.status(201).json(employee);
+         res.status(201).json({message: "Employee created successfully", employee: employee});
          
       } catch (error) {
          // pass the error to the error handler middleware
@@ -99,7 +99,7 @@ const updateEmployee = async (req, res, next) => {
    //update the employee
    try {
       const employee = await employeeService.updateEmployee(employeeData, employeeId)
-      res.status(200).json(employee);
+      res.status(200).json({message: "Employee updated successfully", employee: employee});
    } catch (error) {
       // pass the error to the error handler middleware
        return next(error);
