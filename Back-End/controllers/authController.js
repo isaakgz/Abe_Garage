@@ -15,10 +15,10 @@ const login = async (req, res) => {
         return res.status(400).json({message: "Please provide email and password"})
     }
 
-    //check if the user exists in the database
+    //check if the user exists in the database and status is active
     const userExists = await authServices.doesEmployeeRegistered(email);
     if(!userExists) {
-        return res.status(401).json({message: "User does not exist "})
+        return res.status(401).json({message: "User does not exist or is not active. Please register or contact the admin."})
     }
 
     //if the user exists, check if the password is correct

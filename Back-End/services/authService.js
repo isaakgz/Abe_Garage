@@ -5,16 +5,18 @@ const {comparePassword} = require("../utils/passwordUtils");
 
 
 
-// a function to check if the user exists in the database with the provided email
+// a function to check if the user exists and check his status (active or not)
 const doesEmployeeRegistered = async (email) => {
-    const [rows] = await db.query('SELECT * FROM employee WHERE employee_email = ?', [email]);
+    const  [rows_] = await db.query('SELECT * FROM employee WHERE employee_email = ?', [email]);
+    const user = rows_[0];
+    const isActive = user.employee_active_status === 1 ? true : false;
     
     //if the user exists, return true
-    if (rows.length > 0) {
+    if (rows_.length > 0 && isActive) {
         return true;
     } else {
         return false;
-    }
+    };
 }
 
 
