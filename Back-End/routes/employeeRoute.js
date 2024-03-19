@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {getEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee} = require('../controllers/employeeController');
-const {authMiddleware} = require("../middlewares/authMiddleware")
+const {authMiddleware, adminMiddleware} = require("../middlewares/authMiddleware")
 
 
 // Get all employees
-router.get("/", authMiddleware, getEmployees)
+router.get("/", authMiddleware,adminMiddleware,  getEmployees)
 
 // Get employee by employee id
 router.get("/:id", authMiddleware,getEmployeeById)
