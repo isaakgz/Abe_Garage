@@ -4,10 +4,10 @@ const {login, logout, } = require("../controllers/authController")
 
 
 // login route
-router.post('/login',   login);
+router.post('/',   login);
 
 // logout route
-router.get("/logout", logout)
+router.get("/", logout)
 
 
 
