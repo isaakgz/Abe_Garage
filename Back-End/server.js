@@ -9,6 +9,8 @@ const employeeRoute = require('./routes/employeeRoute');
 const loginRoute = require("./routes/authRoute")
 const servicesRoute = require("./routes/serviceRoute")
 const customerRoute = require("./routes/customerRoute")
+const orderRoute = require("./routes/orderRoute")
+const vehicleRoute = require('./routes/vehicleRoute');
 const session = require('express-session');
 
 const port = process.env.PORT ;
@@ -47,7 +49,11 @@ app.use("/api/services", servicesRoute);
 //customer route
 app.use("/api/customers", customerRoute)
 
+//order route
+app.use("/api/orders", orderRoute)
 
+//vehicle route
+app.use("/api/vehicle", vehicleRoute);
 
 
 //database error handling middleware

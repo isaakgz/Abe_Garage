@@ -45,4 +45,18 @@ const validateCustomer  = (customerData) => {
     return schema.validate(customerData)
 
 }
-module.exports = {validateEmployee, validateService,  validateCustomer};
+
+const validateVehicle = (vehicleData) => {
+const schema = Joi.object({
+    customer_id: Joi.number().integer().required(),
+    vehicle_year: Joi.number().integer().min(1886).max(new Date().getFullYear()),
+    vehicle_make: Joi.string().required(),
+    vehicle_model: Joi.string().required(),
+    vehicle_type: Joi.string().required(),
+    vehicle_mileage: Joi.number().integer().min(0),
+    vehicle_tag: Joi.string().required(),
+    vehicle_serial_number: Joi.string().required(),
+    vehicle_color: Joi.string().required()
+  })
+  return schema.validate(vehicleData)};
+module.exports = {validateEmployee, validateService,  validateCustomer, validateVehicle};
