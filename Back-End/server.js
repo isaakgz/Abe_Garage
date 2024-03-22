@@ -7,6 +7,8 @@ const db = require('./config/dbConfig');
 const app = express();
 const employeeRoute = require('./routes/employeeRoute');
 const loginRoute = require("./routes/authRoute")
+const servicesRoute = require("./routes/serviceRoute")
+const customerRoute = require("./routes/customerRoute")
 const session = require('express-session');
 
 const port = process.env.PORT ;
@@ -40,7 +42,11 @@ app.use('/api/employee', employeeRoute);
 app.use("/api/auth", loginRoute)
 
 //services route
-app.use("/api/services", require("./routes/serviceRoute")); 
+app.use("/api/services", servicesRoute);
+
+//customer route
+app.use("/api/customers", customerRoute)
+
 
 
 

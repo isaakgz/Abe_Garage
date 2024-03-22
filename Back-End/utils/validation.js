@@ -31,4 +31,18 @@ const validateService = (serviceData) => {
     return schema.validate(serviceData);
 }
 
-module.exports = {validateEmployee, validateService};
+const validateCustomer  = (customerData) => {
+    //define the schema
+    const schema = Joi.object({
+        email:Joi.string().email().required(),
+        firstName: Joi.string().min(3).required(),
+        lastName: Joi.string().min(3).required(),
+        phoneNumber: Joi.string().min(10).required(),
+        activeStatus: Joi.number().required(),
+    })
+
+    //return the validation result
+    return schema.validate(customerData)
+
+}
+module.exports = {validateEmployee, validateService,  validateCustomer};
