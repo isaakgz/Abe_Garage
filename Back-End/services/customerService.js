@@ -18,7 +18,7 @@ const getCustomers = async () => {
 const getCustomer = async (id) => {
 
     //sql query to select single customer form database
-    let sql = "SELECT ci.customer_id, ci.customer_email, ci.customer_phone_number,customer_added_date,customer_hash, cinfo.customer_first_name, cinfo.customer_last_name,customer_active_status FROM customer_identifier ci INNER JOIN customer_info cinfo ON ci.customer_id = cinfo.customer_id WHERE ci.customer_id = ?";
+    let sql = "SELECT ci.customer_id, ci.customer_email, ci.customer_phone_number,ci.customer_added_date,ci.customer_hash, cinfo.customer_first_name, cinfo.customer_last_name,customer_active_status FROM customer_identifier ci INNER JOIN customer_info cinfo ON ci.customer_id = cinfo.customer_id WHERE ci.customer_id = ?";
 
     //run the query
     const [rows] = await db.query(sql, [id]);
@@ -32,9 +32,9 @@ const getCustomer = async (id) => {
 }
 
 //a function to check if the customer is already in database
-const doesCustomerExist = async (email) => {
-    let sql = "SELECT * FROM customer_identifier WHERE customer_email = ?";
-    const [rows] = await db.query(sql, [email]);
+const doesCustomerExist = async (email, phoneNumber) => {
+    let sql = "SELECT * FROM customer_identifier WHERE customer_email = ? OR customer_phone_number = ?";
+    const [rows] = await db.query(sql, [email, phoneNumber]);
     return rows.length > 0 ? true : false;
 }
 

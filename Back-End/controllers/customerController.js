@@ -54,9 +54,9 @@ const addCustomer = async (req, res, next) => {
         }
 
         //check if the customer is already in the database
-        const CustomerExists =  await  customerServices.doesCustomerExist(customerData.email);
+        const CustomerExists =  await  customerServices.doesCustomerExist(customerData.email, customerData.phoneNumber);
         if (CustomerExists) {
-            return res.status(400).json({message: "Employee already exists"})
+            return res.status(400).json({message: "email or phone number already in use change it and try again"})
         }
 
         //add a customer

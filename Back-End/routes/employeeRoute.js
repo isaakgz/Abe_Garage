@@ -5,20 +5,20 @@ const {authMiddleware, adminMiddleware} = require("../middlewares/authMiddleware
 
 
 // Get all employees
-router.get("/", authMiddleware,adminMiddleware,  getEmployees)
+router.get("/",   getEmployees)
 
 // Get employee by employee id
-router.get("/:id", authMiddleware,getEmployeeById)
+router.get("/:id",getEmployeeById)
 
 // Create new employee
-router.post("/", authMiddleware, createEmployee)
+router.post("/", createEmployee)
 
 // Update employee by id
-router.put("/:id", authMiddleware, updateEmployee)
+router.put("/:id",  updateEmployee)
 
 
 // Delete employee by id
-router.delete("/:id", authMiddleware, deleteEmployee )
+router.delete("/:id",deleteEmployee )
 
 
 module.exports = router;

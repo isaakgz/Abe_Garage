@@ -1,35 +1,29 @@
 const express = require("express");
 const router = express.Router();
+const {addOrder,deleteOrder, getOrder, getOrders,getOrdersByCustomerId, updateOrder} = require("../controllers/orderController");
 
 
 
 //get all orders
-router.get("/", (req, res) => {
-    res.send("get all user")
-})
+router.get("/", getOrders)
 
 
-//get a single order
-router.get("/:id", (req, res) => {
-    res.send("get a single order")
-})
+//get a single order by id
+router.get("/:id", getOrder)
+
+//get orders by customer id
+router.get("/", getOrdersByCustomerId)
 
 
 //add an order
-router.post("/", (req, res) => {
-    res.send("add an order")
-})
+router.post("/", addOrder)
 
 
 //update a an order
-router.put("/:id", (req, res) => {
-    res.send("update a order")
-})
+router.put("/:id", updateOrder)
 
 //delete an order
-router.delete("/:id", (req, res) => {
-    res.send("delete a order")
-})
+router.delete("/:id", deleteOrder)
 
 
 

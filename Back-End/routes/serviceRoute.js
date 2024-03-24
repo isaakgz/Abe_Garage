@@ -12,7 +12,7 @@ router.get('/:id', getService);
 
 
 //add a service
-router.post('/',authMiddleware, addService);
+router.post('/', addService);
 
 //update a service
 router.put('/:id', updateService);
