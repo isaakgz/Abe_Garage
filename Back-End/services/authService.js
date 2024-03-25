@@ -9,16 +9,22 @@ const {comparePassword} = require("../utils/passwordUtils");
 const doesEmployeeRegistered = async (email) => {
     const  [rows_] = await db.query('SELECT * FROM employee WHERE employee_email = ?', [email]);
     const user = rows_[0];
-    const isActive = user.employee_active_status === 1 ? true : false;
-    
-    //if the user exists, return true
-    if (rows_.length > 0 && isActive) {
-        return true;
-    } else {
-        return false;
-    };
-}
 
+    // Check if user is defined
+    if (user) {
+        const isActive = user.employee_active_status === 1 ? true : false;
+        
+        //if the user exists, return true
+        if (isActive) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        // User does not exist
+        return false;
+    }
+}
 
 // a function to check user password is matching with the provided password
 
